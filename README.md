@@ -3,6 +3,10 @@ Zedboard Linux Image Bilding system using Docker
 
 This image does not curently work...
 
+Working image could be dowloaded from:
+https://archlinuxarm.org/platforms/armv7/xilinx/zedboard <<br>
+(but it is missing the ip_table_nat.ko) 
+
 Errors to be solved...
 mmc0: tried to reset card
 mmc0: Timeout waiting for hardware interrupt.
