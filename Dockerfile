@@ -66,6 +66,6 @@ RUN cp /linux-xlnx-$CHECKOUT_TAG/arch/arm/boot/uImage .
 RUN cp /linux-xlnx-$CHECKOUT_TAG/arch/arm/boot/dts/zynq-zed.dtb devicetree.dtb
 RUN cp /u-boot-xlnx-$CHECKOUT_TAG/u-boot.bin boot.bin
 WORKDIR /linux-xlnx-$CHECKOUT_TAG
-RUN make INSTALL_MOD_PATH="/zedFiles" modules_install
+RUN make $COMP_ARGS INSTALL_MOD_PATH="/zedFiles" modules_install
 WORKDIR /zedFiles/boot
 RUN tar cvzf libs.tar.gz ../lib
