@@ -28,7 +28,7 @@ $PART_START
 p
 w
 EOF
- 
+partprobe 
 # now set up an init.d script
 cat <<\EOF > /etc/init.d/resize2fs_once &&
 #!/bin/sh
