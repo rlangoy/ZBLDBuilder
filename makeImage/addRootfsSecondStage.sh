@@ -1,25 +1,13 @@
-sudo apt-get install -y qemu-user-static debootstrap binfmt-support
-
-targetdir=debian_jessie
-distro=jessie
-
-export targetdir
-export distro
-
-mkdir $targetdir
-
-sudo debootstrap --arch=armhf --foreign $distro $targetdir
-
-
-
-sudo cp /usr/bin/qemu-arm-static $targetdir/usr/bin/ 
-sudo cp /etc/resolv.conf $targetdir/etc
-
-sudo chroot $targetdir
-
+#!/bin/bash
 LC_ALL=C 
 LANGUAGE=C LANG=C 
-distro=jessie
+distro=$1
+
+if [ -z "$1" ]
+  then
+  distro=jessie
+fi
+
 
 export LC_ALL
 export LANGUAGE
@@ -61,9 +49,4 @@ echo T0:2345:respawn:/sbin/getty -L ttyS0 115200 vt100 >> /etc/inittab
 printf "zedboard\nzedboard" | passwd
 
 printf "## Serial Console for zedboard\nttyPS0\n" >> /etc/securetty 
-
-exit
-
-sudo rm $targetdir/etc/resolv.conf
-sudo rm $targetdir/usr/bin/qemu-arm-static
 
