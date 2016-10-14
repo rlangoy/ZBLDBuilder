@@ -9,7 +9,7 @@ RUN apt-get -y install bc
 RUN apt-get -y install ncurses-dev
 RUN apt-get install -y u-boot-tools
 RUN apt-get install -y wget bsdtar
-RUN apt-get install -y python
+RUN apt-get install -y python sudo
 #######
 #  Enviroment vars
 ########
@@ -74,3 +74,13 @@ RUN bsdtar -cpf libs.tar.gz ../lib
 ##
 ##  Must run depmod -a
 ###
+
+##
+##  Add files for building a linuxDistro .img width debian jessie
+WORKDIR /
+COPY BuildScripts/addRootfs.sh .
+COPY BuildScripts/addRootfsSecondStage.sh .
+COPY BuildScripts/expand-rootfs.sh .
+COPY BuildScripts/mkLinuxImg.sh .
+COPY BOOT.BIN .
+#RUN mkLinuxImg.sh  do do docker run --privileged=true
