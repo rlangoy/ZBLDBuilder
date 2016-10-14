@@ -9,5 +9,5 @@ ie: docker build -t rlangoy/zed3_8 .
 
 To build the sd-card .img run: <br>
 <br>
-docker run --privileged=true -it -d ubuntu /bin/bash<br>
+docker run --privileged=true -it ubuntu /bin/bash<br>
 $ mkLinuxImg.sh
