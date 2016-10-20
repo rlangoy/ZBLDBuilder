@@ -70,18 +70,19 @@ RUN cp /u-boot-xlnx-$CHECKOUT_TAG/u-boot.bin boot.bin
 WORKDIR /linux-xlnx-$CHECKOUT_TAG
 RUN make $COMP_ARGS INSTALL_MOD_PATH="/zedFiles" modules_install
 WORKDIR /zedFiles
-RUN bsdtar -cpf libs.tar.gz ./lib
+RUN bsdtar -cpf libs.tar.gz  lib
 WORKDIR /zedFiles/boot
+COPY BOOT.BIN .
 ##
 ##  Must run depmod -a
 ###
 
 ##
 ##  Add files for building a linuxDistro .img width debian jessie
-WORKDIR /
-COPY BuildScripts/addRootfs.sh .
-COPY BuildScripts/addRootfsSecondStage.sh .
-COPY BuildScripts/expand-rootfs.sh .
-COPY BuildScripts/mkLinuxImg.sh .
-COPY BOOT.BIN .
+#WORKDIR /
+#COPY BuildScripts/addRootfs.sh .
+#COPY BuildScripts/addRootfsSecondStage.sh .
+#COPY BuildScripts/expand-rootfs.sh .
+#COPY BuildScripts/mkLinuxImg.sh .
+
 #RUN mkLinuxImg.sh  do do docker run --privileged=true
