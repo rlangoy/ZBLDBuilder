@@ -70,9 +70,12 @@ RUN cp /u-boot-xlnx-$CHECKOUT_TAG/u-boot.bin boot.bin
 WORKDIR /linux-xlnx-$CHECKOUT_TAG
 RUN make $COMP_ARGS INSTALL_MOD_PATH="/zedFiles" modules_install
 WORKDIR /zedFiles
-RUN bsdtar -cpf libs.tar.gz  lib
+RUN bsdtar -cpzf xilinxv2016.2-lib.tar.gz lib
 WORKDIR /zedFiles/boot
 COPY BOOT.BIN .
+RUN bsdtar -cpzf bootPartition.tar.gz BOOT.BIN
+RUN bsdtar -cpzrf bootPartition.tar.gz devicetree.dtb
+RUN bsdtar -cpzrf bootPartition.tar.gz uImage
 ##
 ##  Must run depmod -a
 ###
