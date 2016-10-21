@@ -52,7 +52,8 @@ WORKDIR /linux-xlnx-$CHECKOUT_TAG
 #CMD ["/bin/sh", "-c", "wget https://github.com/Xilinx/linux-xlnx/archive/${CHECKOUT_TAG}.tar.gz"]
 #make ARCH=arm CROSS_COMPILE=arm-none-eabi- xilinx_zynq_defconfig
 COPY config.txt .config
-RUN make $COMP_ARGS oldconfig
+#RUN make $COMP_ARGS oldconfig
+RUN make $COMP_ARGS clean
 RUN make $COMP_ARGS UIMAGE_LOADADDR=0x8000 uImage modules zynq-zed.dtb
 
 #########
@@ -73,9 +74,12 @@ WORKDIR /zedFiles
 RUN bsdtar -cpzf xilinxv2016.2-lib.tar.gz lib
 WORKDIR /zedFiles/boot
 COPY BOOT.BIN .
-RUN bsdtar -cpzf bootPartition.tar.gz BOOT.BIN
-RUN bsdtar -cpzrf bootPartition.tar.gz devicetree.dtb
-RUN bsdtar -cpzrf bootPartition.tar.gz uImage
+RUN mkdir bp
+RUN cp BOOT.BIN bp
+RUN cp devicetree.dtb bp
+RUN cp uImage bp
+WORKDIR /zedFiles/boot/bp
+RUN bsdtar -cpzf bootPartition.tar.gz *
 ##
 ##  Must run depmod -a
 ###
