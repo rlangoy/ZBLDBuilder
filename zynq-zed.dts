@@ -103,6 +103,6 @@
 
 &usb0 {
 	status = "okay";
-	dr_mode = "peripheral";
+	dr_mode = "otg";
 	usb-phy = <&usb_phy0>;
 };
