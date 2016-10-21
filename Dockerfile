@@ -52,6 +52,7 @@ WORKDIR /linux-xlnx-$CHECKOUT_TAG
 #CMD ["/bin/sh", "-c", "wget https://github.com/Xilinx/linux-xlnx/archive/${CHECKOUT_TAG}.tar.gz"]
 #make ARCH=arm CROSS_COMPILE=arm-none-eabi- xilinx_zynq_defconfig
 COPY config.txt .config
+COPY zynq-zed.dts ./arch/arm/boot/dts/zynq-zed.dts
 #RUN make $COMP_ARGS oldconfig
 RUN make $COMP_ARGS clean
 RUN make $COMP_ARGS UIMAGE_LOADADDR=0x8000 uImage modules zynq-zed.dtb
